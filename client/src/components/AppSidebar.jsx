@@ -18,8 +18,19 @@ import { FiUsers } from "react-icons/fi";
 import { GoDot } from "react-icons/go";
 
 import logoWhite from "../assets/images/logo-white.png";
+import { RouteBlog, RouteCategoryDetails } from "@/helpers/RouteName";
+import { useFetch } from "@/hooks/useFetch";
+import { getEnv } from "@/helpers/getEnv";
 
 const AppSidebar = () => {
+  const { data: categoryData } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/category/all-category`,
+    {
+      method: "get",
+      credentials: "include",
+    }
+  );
+
   return (
     <Sidebar>
       <SidebarHeader className="bg-white">
@@ -37,13 +48,13 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton>
                 <BiCategoryAlt />
-                <Link to="">Categories</Link>
+                <Link to={RouteCategoryDetails}>Categories</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
                 <GrBlog />
-                <Link to="">Blogs</Link>
+                <Link to={RouteBlog}>Blogs</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
@@ -64,12 +75,16 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel>Categories</SidebarGroupLabel>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton>
-                <GoDot />
-                <Link to="">Category item</Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            {categoryData &&
+              categoryData.category.length > 0 &&
+              categoryData.category.map((category) => (
+                <SidebarMenuItem key={category._id}>
+                  <SidebarMenuButton>
+                    <GoDot />
+                    <Link to={RouteCategoryDetails}>{category.name}</Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

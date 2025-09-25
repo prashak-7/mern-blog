@@ -110,8 +110,6 @@ const Profile = () => {
     setAvatarPreview(preview);
   };
 
-  console.log(user.user.avatar);
-
   if (isLoading) return <Spinner />;
 
   return (
