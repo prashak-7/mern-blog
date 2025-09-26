@@ -25,3 +25,8 @@ export const RouteBlogByCategory = (category) => {
   if (!category) return "/blog/:category";
   else return `/blog/${category}`;
 };
+
+export const RouteSearch = (query) => {
+  if (query) return `/search?query=${query}`;
+  else return `/search`;
+};

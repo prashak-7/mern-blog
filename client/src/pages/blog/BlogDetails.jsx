@@ -79,8 +79,12 @@ const BlogDetails = () => {
                   <TableRow key={blog._id}>
                     <TableCell>{blog.author.name}</TableCell>
                     <TableCell>{blog.category.name}</TableCell>
-                    <TableCell>{blog.title}</TableCell>
-                    <TableCell>{blog.slug}</TableCell>
+                    <TableCell className="max-w-22 truncate">
+                      {blog.title}
+                    </TableCell>
+                    <TableCell className="max-w-22 truncate">
+                      {blog.slug}
+                    </TableCell>
                     <TableCell>
                       {moment(blog.createdAt).format("DD-MM-YYYY")}
                     </TableCell>

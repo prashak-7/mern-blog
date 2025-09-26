@@ -12,6 +12,7 @@ import {
   RouteEditCategory,
   RouteIndex,
   RouteProfile,
+  RouteSearch,
   RouteSignIn,
   RouteSignUp,
 } from "./helpers/RouteName";
@@ -27,6 +28,7 @@ import EditBlog from "./pages/blog/EditBlog";
 import BlogDetails from "./pages/blog/BlogDetails";
 import Blog from "./pages/Blog";
 import BlogByCategory from "./pages/blog/BlogByCategory";
+import SearchResult from "./components/SearchResult";
 
 const App = () => {
   return (
@@ -47,6 +49,9 @@ const App = () => {
           <Route path={RouteEditBlog()} element={<EditBlog />} />
           <Route path={RouteBlogDetails()} element={<Blog />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
+
+          {/* Search */}
+          <Route path={RouteSearch()} element={<SearchResult />} />
         </Route>
 
         <Route path={RouteSignIn} element={<Signin />} />

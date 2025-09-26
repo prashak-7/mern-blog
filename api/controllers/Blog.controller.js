@@ -185,3 +185,22 @@ export const getBlogByCategory = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const search = async (req, res, next) => {
+  try {
+    const { query } = req.query;
+    const blog = await Blog.find({ title: { $regex: query, $options: "i" } })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .lean()
+      .exec();
+
+    console.log(blog);
+
+    res.status(200).json({
+      blog,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
