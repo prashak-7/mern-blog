@@ -18,7 +18,11 @@ import { FiUsers } from "react-icons/fi";
 import { GoDot } from "react-icons/go";
 
 import logoWhite from "../assets/images/logo-white.png";
-import { RouteBlog, RouteCategoryDetails } from "@/helpers/RouteName";
+import {
+  RouteBlog,
+  RouteBlogByCategory,
+  RouteCategoryDetails,
+} from "@/helpers/RouteName";
 import { useFetch } from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 
@@ -81,7 +85,9 @@ const AppSidebar = () => {
                 <SidebarMenuItem key={category._id}>
                   <SidebarMenuButton>
                     <GoDot />
-                    <Link to={RouteCategoryDetails}>{category.name}</Link>
+                    <Link to={RouteBlogByCategory(category.slug)}>
+                      {category.name}
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

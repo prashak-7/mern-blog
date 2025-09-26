@@ -50,12 +50,12 @@ const CommentList = ({ blogid, newComment }) => {
           data.comments.map((comment) => (
             <div key={comment._id} className="flex gap-3 my-3 ">
               <Avatar>
-                <AvatarImage src={comment?.author.avatar || userIcon} />
+                <AvatarImage src={comment?.user?.avatar || userIcon} />
               </Avatar>
 
               <div className="flex flex-col">
                 <div className="flex gap-2 items-center">
-                  <p className="font-bold">{comment?.author.name}</p>
+                  <p className="font-bold">{comment?.user?.name}</p>
                   <p>{moment(comment?.createdAt).format("DD-MM-YYYY ")}</p>
                 </div>
                 <p className="block">{comment?.comment}</p>

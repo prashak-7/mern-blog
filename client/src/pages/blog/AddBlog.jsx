@@ -33,6 +33,7 @@ import { useSelector } from "react-redux";
 const AddBlog = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     data: categoryData,
     isLoading,
@@ -77,6 +78,7 @@ const AddBlog = () => {
   });
 
   async function onSubmit(values) {
+    setIsSubmitting(true);
     try {
       const newValues = { ...values, author: user.user._id };
       if (!file) return showToast("error", "Featured image is required");
@@ -102,6 +104,8 @@ const AddBlog = () => {
       navigate(RouteBlog);
     } catch (error) {
       showToast("error", error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -213,7 +217,11 @@ const AddBlog = () => {
                   )}
                 />
               </div>
-              <Button type="submit" className="mt-4 w-full">
+              <Button
+                disabled={isSubmitting}
+                type="submit"
+                className="mt-4 w-full"
+              >
                 Add
               </Button>
             </form>

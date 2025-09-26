@@ -1,7 +1,10 @@
 import Comment from "@/components/Comment";
+import CommentCount from "@/components/CommentCount";
 import CommentList from "@/components/CommentList";
+import RelatedBlog from "@/components/RelatedBlog";
 import Spinner from "@/components/Spinner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import LikeCount from "@/components/ui/LikeCount";
 import { getEnv } from "@/helpers/getEnv";
 import { useFetch } from "@/hooks/useFetch";
 import { decode } from "entities";
@@ -9,13 +12,14 @@ import moment from "moment";
 import { useParams } from "react-router-dom";
 
 const Blog = () => {
-  const { blog } = useParams();
+  const { blog, category } = useParams();
   const { data, isLoading, error } = useFetch(
     `${getEnv("VITE_API_BASE_URL")}/blog/get-blog/${blog}`,
     {
       method: "get",
       credentials: "include",
-    }
+    },
+    [blog, category]
   );
 
   if (isLoading) return <Spinner />;
@@ -39,6 +43,11 @@ const Blog = () => {
                   </p>
                 </div>
               </div>
+              {/*  */}
+              <div className="flex justify-between items-center gap-5">
+                <LikeCount blogid={data.blog._id} />
+                <CommentCount blogid={data.blog._id} />
+              </div>
             </div>
 
             <div className="my-5">
@@ -53,7 +62,9 @@ const Blog = () => {
           </div>
         </>
       )}
-      <div className="border rounded w-[30%]"></div>
+      <div className="border rounded w-[30%]">
+        <RelatedBlog category={category} currentBlog={blog} />
+      </div>
     </div>
   );
 };

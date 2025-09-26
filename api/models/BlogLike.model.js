@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const CommentSchema = new mongoose.Schema(
+const LikeSchema = new mongoose.Schema(
   {
-    user: {
+    userid: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
@@ -12,14 +12,9 @@ const CommentSchema = new mongoose.Schema(
       required: true,
       ref: "Blog",
     },
-    comment: {
-      type: String,
-      required: true,
-      trim: true,
-    },
   },
   { timestamps: true }
 );
 
-const Comment = mongoose.model("Comment", CommentSchema);
-export default Comment;
+const BlogLike = mongoose.model("BlogLike", LikeSchema);
+export default BlogLike;

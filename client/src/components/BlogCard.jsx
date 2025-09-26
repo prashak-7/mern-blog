@@ -13,7 +13,7 @@ import { RouteBlogDetails } from "@/helpers/RouteName";
 const BlogCard = ({ blog }) => {
   return (
     <Link to={RouteBlogDetails(blog.category.slug, blog.slug)}>
-      <Card className="pt-5">
+      <Card className="pt-5 h-full">
         <CardContent>
           <div className="flex items-center justify-between">
             <div className="flex justify-between items-center gap-2">
@@ -30,7 +30,10 @@ const BlogCard = ({ blog }) => {
           </div>
 
           <div className="my-2">
-            <img src={blog.featuredImage} className="rounded" />
+            <img
+              src={blog.featuredImage}
+              className="rounded  w-full h-48 object-cover"
+            />
           </div>
 
           <div>

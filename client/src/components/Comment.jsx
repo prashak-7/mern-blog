@@ -26,7 +26,7 @@ const Comment = ({ blogid }) => {
   const [newComment, setNewComment] = useState();
 
   const formSchema = z.object({
-    comment: z.string().min(3, "Comment must be at least 3 characters long"),
+    comment: z.string().min(1, "Oops! You forgot to enter your comment"),
   });
 
   const form = useForm({
@@ -41,7 +41,7 @@ const Comment = ({ blogid }) => {
       const newValues = {
         ...values,
         blogid: blogid,
-        author: user.user._id,
+        user: user.user._id,
       };
       const response = await fetch(
         `${getEnv("VITE_API_BASE_URL")}/comment/add`,
