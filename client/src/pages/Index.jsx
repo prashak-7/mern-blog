@@ -9,7 +9,7 @@ const Index = () => {
     data: blogData,
     isLoading,
     error,
-  } = useFetch(`${getEnv("VITE_API_BASE_URL")}/blog/all-blogs`, {
+  } = useFetch(`${getEnv("VITE_API_BASE_URL")}/blog/blogs`, {
     method: "get",
     credentials: "include",
   });

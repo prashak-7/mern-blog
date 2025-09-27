@@ -6,12 +6,38 @@ import Category from "../models/category.model.js";
 
 export const getAllBlogs = async (req, res, next) => {
   try {
+    const user = req.user;
+    let blogs;
+    if (user.role === "admin") {
+      blogs = await Blog.find()
+        .populate("author", "name avatar role")
+        .populate("category", "name slug")
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+    } else {
+      blogs = await Blog.find({ author: user._id })
+        .populate("author", "name avatar role")
+        .populate("category", "name slug")
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+    }
+
+    res.status(200).json({ success: true, blogs });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const getBlogs = async (req, res, next) => {
+  try {
     const blogs = await Blog.find()
       .populate("author", "name avatar role")
       .populate("category", "name slug")
       .sort({ createdAt: -1 })
-      .lean()
-      .exec();
+      .lean();
+
     res.status(200).json({ success: true, blogs });
   } catch (error) {
     next(handleError(500, error.message));

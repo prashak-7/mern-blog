@@ -14,7 +14,12 @@ import userAvatar from "../assets/images/user.png";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
-import { RouteIndex, RouteProfile, RouteSignIn } from "@/helpers/RouteName";
+import {
+  RouteAddBlog,
+  RouteIndex,
+  RouteProfile,
+  RouteSignIn,
+} from "@/helpers/RouteName";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPlus, FaRegUser } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -73,7 +78,7 @@ const Topbar = () => {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <FaPlus />
-                <Link>Create Blog</Link>
+                <Link to={RouteAddBlog}>Create Blog</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>

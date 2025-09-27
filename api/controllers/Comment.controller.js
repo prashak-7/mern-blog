@@ -40,11 +40,21 @@ export const getComments = async (req, res, next) => {
 
 export const getAllComments = async (req, res, next) => {
   try {
-    const comments = await Comment.find()
-      .populate("blogid", "title")
-      .populate("user", "name")
-      .lean()
-      .exec();
+    const user = req.user;
+    let comments;
+    if (user.role === "admin") {
+      comments = await Comment.find()
+        .populate("blogid", "title")
+        .populate("user", "name")
+        .lean()
+        .exec();
+    } else {
+      comments = await Comment.find({ user: user._id })
+        .populate("blogid", "title")
+        .populate("user", "name")
+        .lean()
+        .exec();
+    }
 
     res.status(201).json({
       success: true,
@@ -58,25 +68,26 @@ export const getAllComments = async (req, res, next) => {
 export const deleteComment = async (req, res, next) => {
   try {
     const { commentid } = req.params;
-    const comments = await Comment.findByIdAndDelete(commentid);
+    await Comment.findByIdAndDelete(commentid);
 
     res.status(201).json({
       success: true,
-      comments,
+      message: "Comment deleted",
     });
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
+
 export const commentCount = async (req, res, next) => {
   try {
     const { blogid } = req.params;
 
-    await Comment.countDocuments({ blogid });
+    const commentCount = await Comment.countDocuments({ blogid });
 
     res.status(201).json({
       success: true,
-      message: "Comment deleted",
+      commentCount,
     });
   } catch (error) {
     next(handleError(500, error.message));

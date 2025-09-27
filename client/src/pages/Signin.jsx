@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/user/user.slice";
 import GoogleLogin from "@/components/GoogleLogin";
 
+import logo from "../assets/images/logo-white.png";
+
 const Signin = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
@@ -65,6 +67,11 @@ const Signin = () => {
   return (
     <div className="flex justify-center items-center h-screen w-screen p-4">
       <Card className="w-[400px] p-5">
+        <div className="flex items-center justify-center">
+          <Link to={RouteIndex}>
+            <img src={logo} />
+          </Link>
+        </div>
         <h2 className="text-2xl font-bold text-center mb-5">
           Login Into Account
         </h2>
