@@ -1,4 +1,4 @@
-import { IoIosLogIn } from "react-icons/io";
+import { IoIosLogIn, IoMdMenu, IoMdSearch } from "react-icons/io";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,8 +26,12 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { getEnv } from "@/helpers/getEnv";
 import { removeUser } from "@/redux/user/user.slice";
+import { useSidebar } from "./ui/sidebar";
+
 const Topbar = () => {
   const user = useSelector((state) => state.user);
+  const { toggleSidebar } = useSidebar();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -50,15 +54,23 @@ const Topbar = () => {
       showToast("error", error.message);
     }
   };
+
   return (
     <div className="flex justify-between items-center h-16 fixed w-full z-15 bg-white gap-4 px-5 border-b">
-      <div>
-        <img src={logoWhite} />
+      <div className="flex justify-center items-center gap-2">
+        <button onClick={toggleSidebar} type="button" className="md:hidden">
+          <IoMdMenu />
+        </button>
+        <Link to={RouteIndex}>
+          <img src={logoWhite} className="sm:w-auto w-44" />
+        </Link>
       </div>
       <div className="w-[450px]">
-        <SearchBox />
+        <div>
+          <SearchBox />
+        </div>
       </div>
-      <div>
+      <div className="flex items-center gap-5">
         {user.isLoggedIn ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
