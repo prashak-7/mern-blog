@@ -64,3 +64,30 @@ export const updateUser = async (req, res, next) => {
     next(handleError(error));
   }
 };
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find().sort({
+      createdAt: -1,
+    });
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    next(handleError(500, error.messae));
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    res.status(200).json({
+      success: true,
+      message: "User deleted",
+    });
+  } catch (error) {
+    next(handleError(500, error.messae));
+  }
+};

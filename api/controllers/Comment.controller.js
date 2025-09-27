@@ -38,15 +38,45 @@ export const getComments = async (req, res, next) => {
   }
 };
 
+export const getAllComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find()
+      .populate("blogid", "title")
+      .populate("user", "name")
+      .lean()
+      .exec();
+
+    res.status(201).json({
+      success: true,
+      comments,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const deleteComment = async (req, res, next) => {
+  try {
+    const { commentid } = req.params;
+    const comments = await Comment.findByIdAndDelete(commentid);
+
+    res.status(201).json({
+      success: true,
+      comments,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
 export const commentCount = async (req, res, next) => {
   try {
     const { blogid } = req.params;
 
-    const commentCount = await Comment.countDocuments({ blogid });
+    await Comment.countDocuments({ blogid });
 
     res.status(201).json({
       success: true,
-      commentCount,
+      message: "Comment deleted",
     });
   } catch (error) {
     next(handleError(500, error.message));

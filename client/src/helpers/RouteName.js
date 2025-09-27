@@ -30,3 +30,6 @@ export const RouteSearch = (query) => {
   if (query) return `/search?query=${query}`;
   else return `/search`;
 };
+
+export const RouteCommentDetails = "/comments";
+export const RouteUser = "/users";
