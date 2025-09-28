@@ -70,10 +70,10 @@ export default function Editor({ props }) {
           Bold,
           Essentials,
           Italic,
-          Markdown,
+
           MediaEmbed,
           Paragraph,
-          PasteFromMarkdownExperimental,
+
           PasteFromOffice,
           Table,
           TableCaption,

@@ -54,7 +54,12 @@ const Blog = () => {
               <img className="rounded" src={data.blog.featuredImage} />
             </div>
 
-            <p>{decode(data.blog.blogContent)}</p>
+            <p></p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: decode(data.blog.blogContent),
+              }}
+            ></div>
 
             <div className="border-t mt-5 pt-5">
               <Comment blogid={data.blog._id} />
